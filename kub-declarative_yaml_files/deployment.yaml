@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+  labels: 
+    group: example
+spec:
+  replicas: 1
+  selector:
+    # matchLabels: 
+    #   app: second-app
+    #   tier: backend
+    matchExpressions:
+      - {key: app, operator: In, values: [second-app, first-app]} #operator can be In, DoesNotExist etc...
+  template: 
+    metadata:
+      labels: 
+        app: second-app
+        tier: backend
+    spec:
+      containers:
+        - name: second-node
+          image: pmkays/kub-first-app:v3
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 10
+            initialDelaySeconds: 5
