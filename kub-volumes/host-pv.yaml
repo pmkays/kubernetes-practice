@@ -8,6 +8,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce #bc we using hostPath which is tied to one node (minikube only one worker node)
+  storageClassName: standard
   hostPath:
     path: /data
     type: DirectoryOrCreate
