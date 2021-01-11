@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: host-pv 
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce #bc we using hostPath which is tied to one node (minikube only one worker node)
+  hostPath:
+    path: /data
+    type: DirectoryOrCreate
+#now all pods in the node can use this volume as this volume is not pod-specific!
