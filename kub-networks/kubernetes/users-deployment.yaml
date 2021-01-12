@@ -14,5 +14,12 @@ spec:
     spec:
       containers:
         - name: users
-          image: pmkays/kub-demo-users
+          image: pmkays/kub-demo-users:latest
+          imagePullPolicy: Always
+          env:
+            - name: AUTH_ADDRESS
+              value: localhost
+        - name: auth
+          image: pmkays/kub-demo-auth:latest
+          imagePullPolicy: Always
 
